@@ -1,0 +1,7 @@
+<launch>
+	<include file="$(find microstrain_3dm_gx5_45)/launch/microstrain_25_nav.launch"/>
+	<include file="$(find dynamixel_workbench_controllers)/launch/position_control.launch"/>	
+	
+	<node pkg="rosserial_python" type="serial_node.py" name="ros_arduino_communicator" args="/dev/ARDUINO"/>
+	<node pkg="t3_ctrler_v1" type="t3_ctrler" name="t3_controller" output="screen"/>
+</launch>

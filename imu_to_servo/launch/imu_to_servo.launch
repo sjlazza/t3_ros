@@ -1,0 +1,5 @@
+<launch>
+	<include file="$(find microstrain_3dm_gx5_45)/launch/microstrain_25.launch" />
+	<include file="$(find dynamixel_workbench_controllers)/launch/position_control.launch" />
+	<node pkg="" type="" name="">
+<\launch>

@@ -1,0 +1,19 @@
+https://github.com/ROBOTIS-GIT/dynamixel-workbench/issues/129
+
+cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+
+sudo usermod -aG dialout $USER 
+echo 1 | sudo tee /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+
+https://github.com/ROBOTIS-GIT/DynamixelSDK/blob/master/c%2B%2B/src/dynamixel_sdk/port_handler_linux.cpp
+
+Method 1. Type following (you should do this everytime when the usb once was plugged out or the connection was dropped)
+  // $ echo 1 | sudo tee /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+  // $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
+ 
+Method 2. If you want to set it as be done automatically, and don't want to do above everytime, make rules file in /etc/udev/rules.d/. For example,
+  // $ echo ACTION==\"add\", SUBSYSTEM==\"usb-serial\", DRIVER==\"ftdi_sio\", ATTR{latency_timer}=\"1\" > 99-dynamixelsdk-usb.rules
+  // $ sudo cp ./99-dynamixelsdk-usb.rules /etc/udev/rules.d/
+  // $ sudo udevadm control --reload-rules
+  // $ sudo udevadm trigger --action=add
+  // $ cat /sys/bus/usb-serial/devices/ttyUSB0/latency_timer
